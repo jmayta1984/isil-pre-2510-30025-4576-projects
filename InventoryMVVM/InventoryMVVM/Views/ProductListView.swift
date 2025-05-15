@@ -31,7 +31,9 @@ struct ProductListView: View {
                 }
             }
             .sheet(isPresented: $showDetail) {
-                ProductDetailView()
+                ProductDetailView { product in
+                    viewModel.addProduct(product: product)
+                }
             }
         }
     }

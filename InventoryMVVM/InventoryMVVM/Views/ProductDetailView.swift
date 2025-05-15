@@ -10,6 +10,7 @@ import SwiftUI
 struct ProductDetailView: View {
     @StateObject var viewModel = ProductDetailViewModel()
     @Environment(\.dismiss) var dismiss
+    var onSave: (Product) -> Void
     
     var body: some View {
         NavigationStack {
@@ -23,6 +24,7 @@ struct ProductDetailView: View {
                 Section {
                     Button(action: {
                         if let product = viewModel.validate() {
+                            onSave(product)
                             dismiss()
                         }
                         
@@ -39,6 +41,3 @@ struct ProductDetailView: View {
     }
 }
 
-#Preview {
-    ProductDetailView()
-}

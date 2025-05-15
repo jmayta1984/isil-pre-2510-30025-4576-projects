@@ -9,5 +9,9 @@ import Foundation
 
 class ProductListViewModel: ObservableObject {
     
-    @Published var products = [Product]()
+    @Published private(set) var products = [Product]()
+    
+    func addProduct(product: Product) {
+        products.append(product)
+    }
 }
