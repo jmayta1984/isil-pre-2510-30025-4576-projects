@@ -14,4 +14,14 @@ class ProductListViewModel: ObservableObject {
     func addProduct(product: Product) {
         products.append(product)
     }
+    
+    func deleteProduct(indexSet: IndexSet) {
+        products.remove(atOffsets: indexSet)
+    }
+    
+    func updateProduct(product: Product) {
+        products = products.map { item in
+            item.id == product.id ? product : item
+        }
+    }
 }

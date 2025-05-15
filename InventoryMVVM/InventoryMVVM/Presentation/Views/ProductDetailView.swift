@@ -10,6 +10,12 @@ import SwiftUI
 struct ProductDetailView: View {
     @StateObject var viewModel = ProductDetailViewModel()
     @Environment(\.dismiss) var dismiss
+    var selectedProduct: Product?
+    
+    var title: String {
+        selectedProduct == nil ? "New product" : "Update product"
+    }
+    
     var onSave: (Product) -> Void
     
     var body: some View {
@@ -23,7 +29,7 @@ struct ProductDetailView: View {
                 }
                 Section {
                     Button(action: {
-                        if let product = viewModel.validate() {
+                        if let product = viewModel.validate(id: selectedProduct?.id) {
                             onSave(product)
                             dismiss()
                         }
@@ -36,7 +42,13 @@ struct ProductDetailView: View {
                     Text(error).foregroundStyle(.red)
                 }
             }
-            .navigationTitle("New product")
+            .navigationTitle(title)
+            .onAppear {
+                if let product = selectedProduct {
+                    viewModel.loadData(product: product)
+                }
+                
+            }
         }
     }
 }
