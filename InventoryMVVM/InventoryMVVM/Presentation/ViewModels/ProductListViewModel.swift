@@ -8,20 +8,31 @@
 import Foundation
 
 class ProductListViewModel: ObservableObject {
-    
     @Published private(set) var products = [Product]()
+    let productDao = ProductDao()
+    
+    init(){
+        fetchProducts()
+    }
     
     func addProduct(product: Product) {
-        products.append(product)
+        productDao.insertProduct(product: product)
+        fetchProducts()
     }
     
     func deleteProduct(indexSet: IndexSet) {
-        products.remove(atOffsets: indexSet)
+        if let index = indexSet.first {
+            productDao.deleteProduct(id: products[index].id)
+        }
+        fetchProducts()
     }
     
     func updateProduct(product: Product) {
-        products = products.map { item in
-            item.id == product.id ? product : item
-        }
+        productDao.updateProduct(product: product)
+        fetchProducts()
+    }
+    
+    func fetchProducts() {
+        products = productDao.fetchProducts()
     }
 }
