@@ -9,13 +9,13 @@ import SwiftUI
 
 struct LoginView: View {
     
-    @State var email = ""
-    @State var password = ""
+    @StateObject var viewModel = LoginViewModel()
+   
     
     var body: some View {
         VStack (spacing: 20){
             
-            TextField("Email", text: $email)
+            TextField("Email", text: $viewModel.email)
                 .keyboardType(.emailAddress)
                 .textInputAutocapitalization(.never)
                 .autocorrectionDisabled()
@@ -23,12 +23,14 @@ struct LoginView: View {
                 .background(.gray.opacity(0.1))
                 .clipShape(RoundedRectangle(cornerRadius: 10))
             
-            TextField("Password", text: $password)
+            TextField("Password", text: $viewModel.password)
                 .padding()
                 .background(.gray.opacity(0.1))
                 .clipShape(RoundedRectangle(cornerRadius: 10))
             
-            Button(action: {}) {
+            Button(action: {
+                viewModel.login()
+            }) {
                 Text("Sign in")
                     .frame(maxWidth: .infinity)
                     .padding()
@@ -41,6 +43,12 @@ struct LoginView: View {
             Button(action: {}) {
                 Text("Sign up")
                     .foregroundStyle(Color.customOrange)
+            }
+            
+            Group{
+                if let error = viewModel.errorMessage {
+                    Text(error).foregroundStyle(.red)
+                }
             }
 
         }

@@ -75,18 +75,9 @@ struct HomeView: View {
                         ShoeCardView(shoe: shoe)
                     }
                 }
-                
-                
-                
-                
-                
-                
-                
+
                 Spacer()
-                
-                
-                
-                
+      
             }
             .padding()
         }
