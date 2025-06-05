@@ -18,7 +18,7 @@ class AuthService {
                 return
             }
             guard let data = data else {
-                completion(nil, "Error: no data")
+                completion(nil, error)
                 return
             }
             

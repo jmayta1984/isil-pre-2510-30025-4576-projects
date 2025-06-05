@@ -1,34 +1,38 @@
 //
-//  ShoeCardView.swift
+//  ShoeDetailView.swift
 //  EasyShoes
 //
-//  Created by user272495 on 5/21/25.
+//  Created by user272495 on 6/4/25.
 //
 
 import SwiftUI
 
-struct ShoeCardView: View {
+struct ShoeDetailView: View {
     let shoe: Shoe
     var body: some View {
-        VStack (alignment: .leading){
+        VStack(alignment:.leading) {
             AsyncImage(url: URL(string: shoe.image)) { phase in
                 switch phase {
                 case .empty:
                     Image(systemName: "shoe")
-                        .frame(width: 120, height:  120)
+                        .scaledToFill()
+                        .frame(width: 400, height:  200)
                         .frame(maxWidth: .infinity)
                 case .success(let image):
                     image.resizable()
-                        .frame(width: 120, height:  120)
+                        .scaledToFill()
+                        .frame(width: 400, height:  200)
                         .frame(maxWidth: .infinity)
 
                 case .failure:
                     Image(systemName: "shoe")
-                        .frame(width: 120, height:  120)
+                        .scaledToFill()
+                        .frame(width: 400, height:  200)
                         .frame(maxWidth: .infinity)
                 @unknown default:
                     EmptyView()
-                        .frame(width: 120, height:  120)
+                        .scaledToFill()
+                        .frame(width: 400, height:  200)
                         .frame(maxWidth: .infinity)
 
                 }
@@ -41,8 +45,5 @@ struct ShoeCardView: View {
                 .font(.subheadline)
                 .foregroundStyle(.gray)
         }
-        .padding()
-        .background(.gray.opacity(0.1))
-        .clipShape(RoundedRectangle(cornerRadius: 20))
     }
 }

@@ -14,19 +14,8 @@ struct HomeView: View {
     
     let genres = ["All", "Men", "Women", "Kids"]
     
-    let shoes = [
-        Shoe(id: 1, name: "Nike Air Force 1", price: 90, image: "https://midwaysports.com/cdn/shop/files/NikeAirForce1BigKids_Shoes_5.png"),
-        Shoe(id: 2, name: "Nike Air Force 1", price: 90, image: "https://midwaysports.com/cdn/shop/files/NikeAirForce1BigKids_Shoes_5.png"),
-        Shoe(id: 3, name: "Nike Air Force 1", price: 90, image: "https://midwaysports.com/cdn/shop/files/NikeAirForce1BigKids_Shoes_5.png"),
-        Shoe(id: 4, name: "Nike Air Force 1", price: 90, image: "https://midwaysports.com/cdn/shop/files/NikeAirForce1BigKids_Shoes_5.png"),
-        Shoe(id: 5, name: "Nike Air Force 1", price: 90, image: "https://midwaysports.com/cdn/shop/files/NikeAirForce1BigKids_Shoes_5.png"),
-        Shoe(id: 6, name: "Nike Air Force 1", price: 90, image: "https://midwaysports.com/cdn/shop/files/NikeAirForce1BigKids_Shoes_5.png"),
-        Shoe(id: 7, name: "Nike Air Force 1", price: 90, image: "https://midwaysports.com/cdn/shop/files/NikeAirForce1BigKids_Shoes_5.png"),
-        Shoe(id: 8, name: "Nike Air Force 1", price: 90, image: "https://midwaysports.com/cdn/shop/files/NikeAirForce1BigKids_Shoes_5.png")
-        
-        
-    ]
-    
+    @StateObject var viewModel = HomeViewModel()
+    @State var selectedShoe: Shoe? = nil
     var body: some View {
         
         
@@ -67,21 +56,36 @@ struct HomeView: View {
                     }
                 }
                 
-                LazyVGrid(columns: [
-                    GridItem(.flexible()),
-                    GridItem(.flexible())
-                ], ) {
-                    ForEach(shoes) { shoe in
-                        ShoeCardView(shoe: shoe)
+                switch viewModel.uiState {
+                case .idle, .loading:
+                    ProgressView()
+                case .success(let shoes):
+                    LazyVGrid(columns: [
+                        GridItem(.flexible()),
+                        GridItem(.flexible())
+                    ], ) {
+                        ForEach(shoes) { shoe in
+                            ShoeCardView(shoe: shoe)
+                                .onTapGesture {
+                                    self.selectedShoe = shoe
+                                }
+                        }
                     }
+                case .failure(let string):
+                    Text(string)
                 }
 
-                Spacer()
+                
       
             }
             .padding()
+            .sheet(item: $selectedShoe) { shoe in
+                ShoeDetailView(shoe: shoe)
+            }
         }
-        
+        .onAppear {
+            viewModel.getShoes()
+        }
     }
 }
 
