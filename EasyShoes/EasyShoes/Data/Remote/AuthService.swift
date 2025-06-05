@@ -10,9 +10,9 @@ import Foundation
 class AuthService {
     let url = "https://dummyjson.com/auth/login"
     
-    func login(username: String, password: String , completion: @escaping(LoginResponse?, String?) -> Void) {
+    func login(username: String, password: String , completion: @escaping(User?, String?) -> Void) {
         
-        HttpRequestHelper().POST(url: url, body: LoginRequest(username: username, password: password)) { data, error in
+        HttpRequestHelper().POST(url: url, body: UserRequestDTO(username: username, password: password)) { data, error in
             guard error == nil else {
                 completion(nil, error)
                 return
@@ -23,8 +23,8 @@ class AuthService {
             }
             
             do {
-                let response = try JSONDecoder().decode(LoginResponse.self, from: data)
-                completion(response, nil)
+                let response = try JSONDecoder().decode(UserDTO.self, from: data)
+                completion(response.toDomain(), nil)
             } catch let error {
                 completion(nil, error.localizedDescription)
             }
