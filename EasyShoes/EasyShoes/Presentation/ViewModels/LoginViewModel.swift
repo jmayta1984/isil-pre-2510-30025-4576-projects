@@ -8,8 +8,8 @@
 import Foundation
 
 class LoginViewModel: ObservableObject {
-    @Published var username = ""
-    @Published var password = ""
+    @Published var username = "emilys"
+    @Published var password = "emilyspass"
     @Published var uiState: UIState<User> = .idle
     
     

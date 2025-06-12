@@ -79,7 +79,7 @@ struct HomeView: View {
       
             }
             .padding()
-            .sheet(item: $selectedShoe) { shoe in
+            .navigationDestination(item: $selectedShoe) { shoe in
                 ShoeDetailView(shoe: shoe)
             }
         }
