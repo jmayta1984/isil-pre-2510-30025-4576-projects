@@ -18,7 +18,7 @@ struct ContentView: View {
             
             
             Tab("Favorites", systemImage: "heart") {
-                Text("Favorites")
+                FavoritesView()
             }
             Tab("Cart", systemImage: "cart") {
                 Text("Cart")
