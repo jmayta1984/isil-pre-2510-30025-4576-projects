@@ -11,6 +11,7 @@ struct ShoeDetailView: View {
     let shoe: Shoe
     
     @State var selectedSize: ShoeSize? = nil
+    @StateObject var viewModel = ShoeDetailViewModel()
     
     var body: some View {
         VStack(alignment:.leading, spacing: 10) {
@@ -43,9 +44,9 @@ struct ShoeDetailView: View {
                     }
                 }
                 Button {
-                    
+                    viewModel.toggleFavorite(shoe: shoe)
                 } label: {
-                    Image(systemName: "heart")
+                    Image(systemName: viewModel.isFavorite ? "heart.fill" : "heart")
                         .resizable()
                         .frame(width: 20, height: 20)
                         .foregroundStyle(.black)

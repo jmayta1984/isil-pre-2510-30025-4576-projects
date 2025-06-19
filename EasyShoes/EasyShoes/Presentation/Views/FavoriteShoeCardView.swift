@@ -64,11 +64,15 @@ struct FavoriteShoeCardView: View {
                 showOptions.toggle()
             } label: {
                 Image(systemName: "ellipsis")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 20, height: 20)
                     .font(.headline)
                     .rotationEffect(.degrees(90))
+                    .foregroundStyle(.black)
                     .padding()
             }
-            .buttonStyle(PlainButtonStyle())
+            .buttonStyle(.borderless)
 
 
         }
@@ -87,7 +91,9 @@ struct FavoriteShoeCardView: View {
                         .frame(width: 20, height: 20)
                     Text("Add to cart")
                     Spacer()
-                }.onTapGesture {
+                }
+                .padding()
+                .onTapGesture {
                     showOptions.toggle()
 
                     showSizes.toggle()
@@ -100,11 +106,11 @@ struct FavoriteShoeCardView: View {
                     Text("Remove from favorites")
                     Spacer()
                 }
-                
+                .padding()
                 Spacer()
             }
             .padding()
-            .presentationDetents([.height(120)])
+            .presentationDetents([.height(200)])
         }
         
         .sheet(isPresented: $showSizes) {

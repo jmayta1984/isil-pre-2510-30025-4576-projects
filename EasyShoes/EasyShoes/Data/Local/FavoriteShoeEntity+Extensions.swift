@@ -13,5 +13,13 @@ extension FavoriteShoeEntity {
         image = favorite.image
         price = Int16(favorite.price)
     }
+    
+    func toDomain() -> FavoriteShoe {
+        FavoriteShoe(
+            id: Int(id),
+            name: name ?? "",
+            price: Int(price),
+            image: image ?? "")
+    }
 }
 
