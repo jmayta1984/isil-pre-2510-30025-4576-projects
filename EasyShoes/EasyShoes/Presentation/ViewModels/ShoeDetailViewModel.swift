@@ -9,9 +9,9 @@ import Foundation
 
 class ShoeDetailViewModel: ObservableObject {
     @Published var isFavorite = false
-    
+    let dao = FavoriteShoeDAO.shared
+
     func toggleFavorite(shoe: Shoe) {
-        let dao = FavoriteShoeDAO()
         isFavorite.toggle()
         if (isFavorite) {
             dao.insertFavorite(
@@ -22,5 +22,9 @@ class ShoeDetailViewModel: ObservableObject {
         } else {
             dao.deleteFavorite(id: shoe.id)
         }
+    }
+    
+    func checkFavorite(id: Int) {
+        isFavorite = dao.isFavorite(id: id)
     }
 }

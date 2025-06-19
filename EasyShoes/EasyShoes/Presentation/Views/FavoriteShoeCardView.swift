@@ -12,6 +12,8 @@ struct FavoriteShoeCardView: View {
     @State var showSizes = false
     
     let favorite: FavoriteShoe
+    
+    let onDelete: () -> Void
     var body: some View {
         HStack {
             AsyncImage(url: URL(string: favorite.image)) { phase in
@@ -76,6 +78,8 @@ struct FavoriteShoeCardView: View {
 
 
         }
+        .padding(.vertical, 8)
+        .padding(.horizontal, 4)
         .background(.gray.opacity(0.1))
         .clipShape(RoundedRectangle(cornerRadius: 10))
         .sheet(isPresented: $showOptions) {
@@ -95,7 +99,6 @@ struct FavoriteShoeCardView: View {
                 .padding()
                 .onTapGesture {
                     showOptions.toggle()
-
                     showSizes.toggle()
                 }
                 HStack {
@@ -107,6 +110,10 @@ struct FavoriteShoeCardView: View {
                     Spacer()
                 }
                 .padding()
+                .onTapGesture {
+                    showOptions.toggle()
+                    onDelete()
+                }
                 Spacer()
             }
             .padding()

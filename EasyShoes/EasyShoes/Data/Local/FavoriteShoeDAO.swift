@@ -8,6 +8,11 @@
 import CoreData
 
 class FavoriteShoeDAO {
+    
+    static let shared = FavoriteShoeDAO()
+    
+    private init(){}
+    
     let context = PersistenceController.shared.container.viewContext
     
     func insertFavorite(favorite: FavoriteShoe) {
@@ -36,10 +41,22 @@ class FavoriteShoeDAO {
         let request: NSFetchRequest<FavoriteShoeEntity>
         request = FavoriteShoeEntity.fetchRequest()
         
-        
         do {
             let entities = try context.fetch(request)
             return entities.map { $0.toDomain() }
+        } catch let error {
+            fatalError(error.localizedDescription)
+        }
+    }
+    
+    func isFavorite(id: Int) -> Bool {
+        let request: NSFetchRequest<FavoriteShoeEntity>
+        request = FavoriteShoeEntity.fetchRequest()
+        request.predicate = NSPredicate(format: "id = %i", argumentArray: [id])
+        
+        do {
+            let entities = try context.fetch(request)
+            return !entities.isEmpty
         } catch let error {
             fatalError(error.localizedDescription)
         }

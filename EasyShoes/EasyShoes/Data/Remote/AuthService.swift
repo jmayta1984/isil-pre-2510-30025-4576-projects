@@ -8,6 +8,11 @@
 import Foundation
 
 class AuthService {
+    
+    static let shared = AuthService()
+    
+    private init() {}
+    
     let url = "https://dummyjson.com/auth/login"
     
     func login(username: String, password: String , completion: @escaping(User?, String?) -> Void) {

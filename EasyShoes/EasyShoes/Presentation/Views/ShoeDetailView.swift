@@ -103,5 +103,8 @@ struct ShoeDetailView: View {
             
         }
         .padding()
+        .onAppear {
+            viewModel.checkFavorite(id: shoe.id)
+        }
     }
 }

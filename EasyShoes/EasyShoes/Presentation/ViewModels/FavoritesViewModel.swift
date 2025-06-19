@@ -9,8 +9,20 @@ import Foundation
 
 class FavoritesViewModel: ObservableObject {
     @Published var favorites = [FavoriteShoe]()
+    private let dao = FavoriteShoeDAO.shared
     
     func getAllFavorites() {
-        favorites = FavoriteShoeDAO().fetchAllFavorites()
+        favorites = dao.fetchAllFavorites()
+    }
+    
+    func removeFavorite(favorite: FavoriteShoe) {
+        dao.deleteFavorite(id: favorite.id)
+        getAllFavorites()
+    }
+    
+    func removeFavoriteByIndex(indexSet: IndexSet) {
+        if let index = indexSet.first {
+            removeFavorite(favorite: favorites[index])
+        }
     }
 }
