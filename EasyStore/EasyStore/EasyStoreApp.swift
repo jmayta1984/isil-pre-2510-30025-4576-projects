@@ -8,7 +8,7 @@
 import SwiftUI
 
 @main
-struct EasyShoesApp: App {
+struct EasyStoreApp: App {
     var body: some Scene {
         WindowGroup {
             LoginView()
