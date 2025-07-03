@@ -11,6 +11,8 @@ import GoogleMaps
 struct GoogleMapView: UIViewRepresentable {
     let latitude: CLLocationDegrees
     let longitude: CLLocationDegrees
+    var title: String? = nil
+    var snippet: String? = nil
     
     func makeUIView(context: Context) -> some UIView {
         let position = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
@@ -22,8 +24,8 @@ struct GoogleMapView: UIViewRepresentable {
         let mapView = GMSMapView(options: options)
         
         let marker = GMSMarker(position: position)
-        marker.title = "ISIL"
-        marker.snippet = "Sede Miraflores"
+        marker.title = title
+        marker.snippet = snippet
         marker.map = mapView
         
         return mapView

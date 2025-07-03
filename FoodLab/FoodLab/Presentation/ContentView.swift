@@ -9,13 +9,10 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-            GoogleMapView(latitude: -12.1253808, longitude: -77.0248005)
+        VStack {
+            
         }
+    }
         
     
-}
-
-#Preview {
-    let googleMapHelper = GoogleMapHelper.shared
-    ContentView()
 }
