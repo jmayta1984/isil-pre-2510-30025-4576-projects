@@ -5,8 +5,8 @@
 //  Created by user272495 on 7/9/25.
 //
 
-struct SuperHeroesDTO: Decodable {
-    let heroes: [SuperHeroDTO]
+struct HeroesDTO: Decodable {
+    let heroes: [HeroDTO]
     
     enum CodingKeys: String, CodingKey {
         case heroes = "results"
@@ -21,8 +21,8 @@ struct HeroDTO: Decodable {
     let biography: BiographyDTO
     let appearance: AppearanceDTO
     
-    func toDomain() -> SuperHero {
-        SuperHero(id: id,
+    func toDomain() -> Hero {
+        Hero(id: id,
                   name: name,
                   poster: image.url,
                   intelligence: Double(powerstats.intelligence) ?? 0.0,

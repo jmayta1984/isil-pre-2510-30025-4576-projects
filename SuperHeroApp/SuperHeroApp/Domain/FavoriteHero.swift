@@ -13,4 +13,10 @@ class FavoriteHero {
     var name: String
     var poster: String
     
+    init(id: String, name: String, poster: String) {
+        self.id = id
+        self.name = name
+        self.poster = poster
+    }
+    
 }

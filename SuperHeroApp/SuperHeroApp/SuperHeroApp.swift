@@ -6,12 +6,17 @@
 //
 
 import SwiftUI
+import SwiftData
 
 @main
 struct SuperHeroApp: App {
+    
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            FavoriteHeroListView()
+                .modelContainer(for: [
+                                   FavoriteHero.self,
+                               ])
         }
     }
 }
